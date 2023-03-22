@@ -14,7 +14,7 @@ for line in data:
     y.append(float(line[1]))
 
 # Grafik boyutunu belirleme
-plt.figure(figsize=(8,6))
+plt.figure(figsize=(8, 6))
 
 # Profil çizimi
 plt.plot(x, y, 'b', linewidth=2)
@@ -25,5 +25,4 @@ plt.xlabel('x/c')
 plt.ylabel('y/c')
 plt.title('NACA 2412 Kanat Profili')
 plt.grid(True)
-
 plt.show()
