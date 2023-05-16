@@ -1,5 +1,9 @@
 from tkinter import *
 import json
+import threading
+import matplotlib.pyplot as plt
+import numpy as np
+from math import *
 
 
 class Airtools:
@@ -19,11 +23,11 @@ class Airtools:
         self.W = 1.8  # Weight (Kg)
         self.g = 9.81  # Gravity
 
-        self.L = 0 # Lift /newton
-        self.D = 0 # drag /newton
-        self.Vs = 0# stall speed /m/s
+        self.L = 0  # Lift /newton
+        self.D = 0  # drag /newton
+        self.Vs = 0  # stall speed /m/s
 
-        #texts
+        # texts
         self.cl_label = Label(master, text="CL")
         self.cl_label.place(x=25, y=50)
 
@@ -56,7 +60,8 @@ class Airtools:
         self.drag_label.place(x=250, y=100)
 
         # widgets
-        self.lift_btn = Button(master, text="Lift", command=self.calculate)
+        self.lift_btn = Button(master, text="Calculate",
+                               command=self.calculate)
         self.lift_btn.place(x=50, y=225)
 
         self.read_btn = Button(master, text="SAVE PARAM",
@@ -102,24 +107,25 @@ class Airtools:
                                width=5)
         self.g_text_box.place(x=50, y=200)
 
-    def lift(self):#calculate lift
+    def lift(self):  # calculate lift
         self.L = (self.CL * self.ro * self.S * (self.V ** 2)) / 2
-        print("Lift= ", self.L, "N =", self.L / self.g, "Kg")
-        self.lift_label = Label(self.master, text="Lift: "+str(self.L))
+        print("Lift= " + str(self.L)+" " "N =" + str(self.L / self.g) + "Kg")
+        self.lift_label = Label(
+            self.master, text="Lift: "+str(self.L)+" " "N = " + str(self.L / self.g) + " Kg")
         self.lift_label.place(x=250, y=50)
 
-    def stallspeed(self):#calculate stallspeed
+    def stallspeed(self):  # calculate stallspeed
         self.Vs = ((2 * self.W * self.g) /
                    (self.ro * self.S * self.CL)) ** (1 / 2)
         print("stallspeed= ", self.Vs, "m/s")
         self.stall_speed_label = Label(
-            self.master, text="Stall Speed: "+str(self.Vs))
+            self.master, text="Stall Speed: "+str(self.Vs)+" m/s")
         self.stall_speed_label.place(x=250, y=75)
 
-    def drag(self):#calculate drag
+    def drag(self):  # calculate drag
         self.D = (self.ro * (self.V ** 2) * self.CD * self.S) / 2
         print("Drag= ", self.D, "N")
-        self.drag_label = Label(self.master, text="Drag: "+str(self.D))
+        self.drag_label = Label(self.master, text="Drag: "+str(self.D)+" N")
         self.drag_label.place(x=250, y=100)
 
     def calculate(self):
@@ -179,4 +185,6 @@ class Airtools:
 if __name__ == '__main__':
     root = Tk()
     airtools = Airtools(root)
+
+  
     root.mainloop()
